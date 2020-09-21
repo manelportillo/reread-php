@@ -81,7 +81,7 @@
     display: table;
     clear: both;
   }
-  
+/*Clases para precio de libros*/
   .alineacionImg{
     float: left; /*Haremos que se vayan a la izquierda*/
     width: 33.3%;
@@ -91,9 +91,36 @@
   .alineacionImg img {
     width: 100%;
   }
+
+/*Clases para la galeria de ebooks*/
+.ebook{
+  float: left;
+  width: 33.3%;
+  padding: 20px;
+}
+
+.ebook img{
+  width: 100%;
+}
+
+.ebook:hover{
+  background-color: red;
+  color: white;
+}
   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .column.left, .column.right , .topnav a{
-      width: 100%;
-    }
+@media screen and (max-width: 600px) {
+  .column.left, .column.right , .ebook{
+    width: 100%;
   }
+    
+  /*Encabezado*/
+  .header p{
+    padding: 0;
+  }
+
+  /*Items del menú de navegación*/
+  .topnav a{
+    width: 100%;
+    font-size: 25px;
+  }
+}
