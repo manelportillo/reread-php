@@ -23,7 +23,28 @@
           <a href="ebooks.php">eBooks</a>
         </div>
         <h3>Toda la actualidad en eBooks</h3>
-        <!--eBooks con descripción-->
+        <?php
+        // 1. Conexión con la base de datos
+        include '../services/connection.php';
+
+        // 2. Selección y muestra de datos de la base de datos 
+        $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
+        
+        if (!empty ($result) && mysqli_num_rows($result) > 0){
+          //datos de la salida de cada fila (fila=row)
+          while ($row = mysqli_fetch_array($result)) {
+            echo "<div class='ebook'>";
+            //Añadismos la imagen de la página con la etiqueta img de HTML
+            echo "<img src=../img/".$row['img']." alt='".$row['Title'].$row['Description']."'>";
+            //Añadimos el título a la página con la etiqueta h2 de HTML
+            //echo "div class='desc0".row['Title]." </div>";
+            echo "</div>";
+          }
+        }else {
+          echo "0 resultados";
+        }
+        ?>
+        <!--eBooks con descripción
         <div class="ebook">
           <a href="https://www.amazon.es/Cell-Stephen-King-ebook/dp/B009MBC26I"><img src="../img/cell.jpeg" alt="ebook 1">
           <div>A través de los teléfonos móviles se envía un mensaje que convierte a todos en esclavos asesinos...</div>
@@ -39,7 +60,7 @@
         <div class="ebook">
           <a href="https://www.amazon.es/El-resplandor-Stephen-King-ebook/dp/B007TID0R6"><img src="../img/doctorsleep.jpeg" alt="ebook 4">
         <div>Una novela que entusiasmará a los millones de lectores de El resplandor y que encantará...</div>
-        </div></a>
+        </div></a>-->
       </div>
       <div class="column right">
         <h2>Side</h2>
