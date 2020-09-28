@@ -38,25 +38,25 @@
           <p>En Re-Read compramos tus libros para darles una segunda vida. Los compramos todos al mismo precio: 0,20 euros. Siempre hay libros leídos y libros por leer. Por eso Re-compramos y Re-vendemos para que nunca te quedes sin ninguno de los dos.</p>
       </div>
       <div class="column right">
-      <?php
-      // 1. Conexión con la base de datos
-      include '../services/connection.php';
+    <?php
+    // 1. Conexión con la base de datos
+    include '../services/connection.php';
 
-      // 2. Selección y muestra de datos de la base de datos 
-      $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top = '1'");
-      
-      if (!empty ($result) && mysqli_num_rows($result) > 0){
-        //datos de la salida de cada fila (fila=row)
-        while ($row = mysqli_fetch_array($result)) {
-          //Añadismos la imagen de la página con la etiqueta img de HTML
-          echo "<p>".$row['Title']."<br>";
-          //Añadimos el título a la página con la etiqueta h2 de HTML
-          //echo "div class='desc0".row['Title]." </div>";
-        }
-      }else {
-        echo "0 resultados";
+    // 2. Selección y muestra de datos de la base de datos 
+    $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top = '1'");
+    
+    if (!empty ($result) && mysqli_num_rows($result) > 0){
+      //datos de la salida de cada fila (fila=row)
+      while ($row = mysqli_fetch_array($result)) {
+        //Añadismos la imagen de la página con la etiqueta img de HTML
+        echo "<p>".$row['Title']."<br>";
+        // Añadimos el título a la página con la etiqueta h2 de HTML
+        // echo "div class='desc0".row['Title]." </div>";
       }
-      ?>
+    }else {
+      echo "0 resultados";
+    }
+    ?>
       </div>
     </div> 
   </body>
