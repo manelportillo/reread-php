@@ -63,11 +63,25 @@
         </div></a>-->
       </div>
       <div class="column right">
-        <h2>Side</h2>
-        <p>Cien años de soledad.</p>
-        <p>Crónica de una muerte anunciada.</p>
-        <p>El otoño del patriarca.</p>
-        <p>El general en su laberinto.</p>
+      <?php
+      // 1. Conexión con la base de datos
+      include '../services/connection.php';
+
+      // 2. Selección y muestra de datos de la base de datos 
+      $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top = '1'");
+      
+      if (!empty ($result) && mysqli_num_rows($result) > 0){
+        //datos de la salida de cada fila (fila=row)
+        while ($row = mysqli_fetch_array($result)) {
+          //Añadismos la imagen de la página con la etiqueta img de HTML
+          echo "<p>".$row['Title']."<br>";
+          //Añadimos el título a la página con la etiqueta h2 de HTML
+          //echo "div class='desc0".row['Title]." </div>";
+        }
+      }else {
+        echo "0 resultados";
+      }
+      ?>
       </div>
     </div>
   </body>
