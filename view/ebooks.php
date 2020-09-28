@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Estilos enlazados-->
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <script src="./javascript/code.js"></script>
   </head>
   <body>
     <div class="logo">
@@ -39,10 +40,10 @@
             //Añadismos la imagen de la página con la etiqueta img de HTML
             echo "<img src=../img/".$row['img']." alt='".$row['Title'].$row['Description']."'>";
             //Añadimos el título a la página con la etiqueta h2 de HTML
-            echo "<div class= desc0>".$row['Description']."</div>";
+            echo "<div class= 'desc0'>".$row['Description']."</div>";
             echo "</div>";
             if ($i%3==0) {
-              echo "<div style='clear both;'></div>";
+              echo "<div style='clear:both;'></div>";
             }
           }
         }else {
