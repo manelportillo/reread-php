@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Estilos enlazados-->
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-    <script src="./javascript/code.js"></script>
   </head>
   <body>
     <div class="logo">
