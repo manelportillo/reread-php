@@ -23,13 +23,43 @@
           <a href="ebooks.php">eBooks</a>
         </div>
         <h3>Toda la actualidad en eBooks</h3>
+        <!-- Nuevo desarrollo formulario para filtrar autor -->
+       <div class="form">
+        <form action="ebooks.php" method="POST">
+          <label for="fname">Autor</label>
+          <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor...">
+          
+          <!-- <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+          -->
+          <label for="country">País</label>
+          <select id="country" name="country">
+            <option value="%">Todos los paises</option>
+            <?php
+            include '../services/connection.php';
+            $query="SELECT DISTINCT Authors.Country FROM Authors ORDER BY Country";
+            $result=mysqli_query($conn, $query);
+            while ($row = mysqli_fetch_array($result)) {
+              echo '<option value="'.$row[Country].'">'.$row[Country].'</option>';
+            }
+            ?>
+          </select> 
+          <input type="submit" value="Buscar">
+          </form>
+        </div>
         <?php
         // 1. Conexión con la base de datos
-        include '../services/connection.php';
-
-        // 2. Selección y muestra de datos de la base de datos 
-        $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
-        
+        if (isset($_REQUEST['fautor'])) {
+          $query = "SELECT Books.Description, Books.img, Books.Title FROM Books 
+          INNER JOIN BooksAuthors ON Books.Id=BooksAuthors.BookID 
+          INNER JOIN Authors ON Authors.Id = BooksAuthors.AuthorId 
+          WHERE Authors.Name LIKE '%{$_POST['fautor']}%'
+          AND Authors.Country LIKE '%{$_POST['country']}%";
+          $result =mysqli_query($conn, $query);
+          //Mostrará todos los ebooks de la DB
+        }else{
+          $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
+        }
         if (!empty ($result) && mysqli_num_rows($result) > 0){
           //datos de la salida de cada fila (fila=row)
           $i=0;
@@ -45,10 +75,13 @@
               echo "<div style='clear:both;'></div>";
             }
           }
-        }else {
-          echo "0 resultados";
-        }
+         }else {
+           echo "0 resultados encontrados";
+         } 
+        
         ?>
+              
+
         <!--eBooks con descripción
         <div class="ebook">
           <a href="https://www.amazon.es/Cell-Stephen-King-ebook/dp/B009MBC26I"><img src="../img/cell.jpeg" alt="ebook 1">
