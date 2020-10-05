@@ -25,9 +25,11 @@
         <h3>Toda la actualidad en eBooks</h3>
         <!-- Nuevo desarrollo formulario para filtrar autor -->
        <div class="form">
-        <form action="ebooks.php" method="POST">
+        <form action="ebooks.php" method="REQUEST">
           <label for="fname">Autor</label>
           <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor...">
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" name="titulo" placeholder="Introduce un título...">
           
           <!-- <label for="lname">Last Name</label>
           <input type="text" id="lname" name="lastname" placeholder="Your last name..">
@@ -45,17 +47,19 @@
             ?>
           </select> 
           <input type="submit" value="Buscar">
-          </form>
-        </div>
+        </form>
+      </div>
         <?php
         // 1. Conexión con la base de datos
         if (isset($_REQUEST['fautor'])) {
           $query = "SELECT Books.Description, Books.img, Books.Title FROM Books 
-          INNER JOIN BooksAuthors ON Books.Id=BooksAuthors.BookID 
+          INNER JOIN BooksAuthors ON Books.Id=BooksAuthors.BookId
           INNER JOIN Authors ON Authors.Id = BooksAuthors.AuthorId 
-          WHERE Authors.Name LIKE '%{$_POST['fautor']}%'
-          AND Authors.Country LIKE '%{$_POST['country']}%";
-          $result =mysqli_query($conn, $query);
+          WHERE Authors.Name LIKE '%{$_REQUEST['fautor']}%'
+          AND Authors.Country LIKE '%{$_REQUEST['country']}%'
+          AND Books.Title  LIKE '%{$_REQUEST['titulo']}%'";
+          $result = mysqli_query($conn, $query);
+  
           //Mostrará todos los ebooks de la DB
         }else{
           $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
